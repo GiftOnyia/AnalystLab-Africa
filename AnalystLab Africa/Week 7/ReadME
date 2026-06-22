@@ -45,7 +45,7 @@ pip install requests pandas
 Three variables at the top of the script control all runtime behaviour:
 
 ```python
-API_KEY  = "eaef2139d465470d401da42bc6360aa3"
+API_KEY  = ""
 BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 cities   = ['London', 'New York', 'Tokyo', 'Paris', 'Lagos']
 ```

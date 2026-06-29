@@ -1,0 +1,242 @@
+# Global Trade Insight: Impact on GDP
+
+## 📊 Project Overview
+A comprehensive data analytics capstone project analyzing the relationship between international trade openness and macroeconomic growth using World Bank World Development Indicators. This project measures trade intensity (exports + imports as % of GDP) against annual GDP growth across 200+ countries over six decades.
+
+**Key Finding:** Global trade-GDP correlation is 0.08, indicating trade is a contributing but non-deterministic factor in economic growth. Institutional quality, human capital, and infrastructure are equally critical.
+
+---
+
+## 📈 Key Metrics at a Glance
+
+| Metric | Value | Interpretation |
+|--------|-------|-----------------|
+| **Global Average GDP Growth** | 3.67% | Long-term global growth trajectory |
+| **Global Trade Openness Index** | 801.27K | Combined exports + imports as % of GDP |
+| **Trade-to-Growth Correlation** | 0.08 | Weak positive relationship |
+| **Dataset Size** | 395,277 records | 200+ countries, 6+ decades |
+
+---
+
+## 🎯 Research Objectives
+
+### Primary Question
+What is the quantifiable relationship between trade openness and national economic growth across different countries and time periods?
+
+### Secondary Questions
+- Do developed and developing economies exhibit different trade-growth dynamics?
+- How has the trade-growth nexus evolved post-2008 financial crisis?
+- Which countries demonstrate optimal trade-growth outcomes and why?
+
+---
+
+## 📋 Dataset Details
+
+### Data Source
+**World Bank World Development Indicators (WDI)**
+- URL: https://datatopics.worldbank.org/world-development-indicators/
+- Access: CSV bulk download (WDI_CSV.zip)
+
+### Core Indicators
+| Code | Indicator | Type |
+|------|-----------|------|
+| **NY.GDP.MKTP.CD** | GDP (current USD) | Base Economic |
+| **NY.GDP.MKTP.KD.ZG** | GDP growth (annual %) | Growth Rate |
+| **NE.EXP.GNFS.ZS** | Exports (% of GDP) | Trade Flow |
+| **NE.IMP.GNFS.ZS** | Imports (% of GDP) | Trade Flow |
+
+### Data Characteristics
+- **Temporal Coverage:** 1960–2024
+- **Geographic Coverage:** 200+ countries and territories
+- **Frequency:** Annual
+- **Missing Data:** Handled via Power BI filters and aggregation
+
+---
+
+## 🔧 Data Processing Pipeline
+
+### Tools & Technologies
+- **ETL Platform:** Microsoft Power BI (Power Query)
+- **Transformation Language:** M (Power Query)
+- **Visualization:** Power BI Dashboard
+- **Analytics Language:** DAX (Data Analysis Expressions)
+
+### Processing Steps
+
+#### Step 1: Header Setup
+```
+Issue: First row not recognized as headers
+Solution: Promoted the first row to headers in Power Query
+```
+
+#### Step 2: Indicator Filtering
+```
+Action: Isolated 4 trade/GDP indicators from 395,277 total
+Result: Reduced complexity; focused on economically comparable metrics
+```
+
+#### Step 3: Data Structure Optimization
+```
+Operation 1: Unpivoted years from columns to rows
+Operation 2: Changed Year data type from Text → Date
+Operation 3: Changed Value from Text → Decimal Number
+Operation 4: Pivoted indicators back as columns
+```
+
+#### Step 4: Quality Assurance
+```
+Actions:
+  • Removed blank rows from transformation
+  • Validated country-year combinations
+  • Verified no data loss through pipeline
+```
+
+---
+
+## 📊 Derived Metrics & Calculations
+
+### Trade Openness Index
+```
+Trade Openness (% of GDP) = Exports (% of GDP) + Imports (% of GDP)
+```
+**Interpretation:** Measures degree of participation in global trade relative to domestic economy.
+
+### DAX Measures (Power BI)
+```dax
+Trade Openness % of GDP = 
+  SUM('WDI'[Exports of goods and services(% of GDP)]) + 
+  SUM('WDI'[Imports of goods and services(% of GDP)])
+```
+
+### Correlation Analysis
+- **Method:** Pearson correlation coefficient
+- **Variables:** Trade Openness % vs. Annual GDP Growth %
+- **Result:** r = 0.08 (weak positive)
+
+---
+
+## 🎨 Dashboard Visualizations
+
+### 1. Global GDP Scale vs. Trade Openness Trends
+- **Type:** Combination Chart (Line + Column)
+- **Y-Axes:** Average GDP (current USD) | Trade Openness (% of GDP)
+- **Time Period:** 1960–2024
+- **Insight:** Both metrics show long-term upward trend; trade decelerates post-2008
+
+### 2. Trade Openness vs. Annual GDP Growth
+- **Type:** Scatter Plot
+- **X-Axis:** Trade Openness (% of GDP)
+- **Y-Axis:** Annual GDP Growth (%)
+- **Insight:** Weak correlation (r=0.08); high variance at all trade levels
+
+### 3. Global Import vs. Export Performance
+- **Type:** Dual-Axis Line Chart
+- **Series:** Average Imports (%) | Average Exports (%)
+- **Period:** 1960–2024
+- **Insight:** Imports slightly exceed exports globally; gap widened post-2000
+
+### 4. Total GDP by Country Ranking
+- **Type:** Horizontal Bar Chart
+- **Top Countries:** USA, China, Japan, Germany, UK
+- **Metric:** Current USD (Billions)
+- **Insight:** Top 5 countries represent ~30% global GDP
+
+### 5. Historical Trade and Growth Metrics
+- **Type:** Data Table
+- **Rows:** Highlighted countries (Singapore, Luxembourg, San Marino, etc.)
+- **Columns:** Year, GDP Growth, Trade Openness
+- **Insight:** Countries with identical trade openness exhibit vastly different growth
+
+---
+
+## 💡 Key Findings
+
+### Finding 1: Weak Trade-Growth Correlation
+Global correlation (0.08) indicates trade is a **necessary but not sufficient** condition for growth. Other determinants (institutions, education, infrastructure) are equally important.
+
+### Finding 2: Divergent Country Trajectories
+- **Singapore:** 377.22% trade openness → 4.55% growth (2003)
+- **Luxembourg:** 381.87% trade openness → 3.61% growth (2018)
+
+Same trade exposure, different outcomes → Context matters.
+
+### Finding 3: Developed Nations Dominate Trade Volume
+Top 5 countries (USA, China, Japan, Germany, UK) = 30%+ of global trade, yet growth not proportionally higher. **Implication:** Market saturation in developed economies.
+
+### Finding 4: Structural Break Post-2008
+Pre-2008: Trade growth ↔ GDP growth (moderate correlation)
+Post-2008: Sustained trade volume despite sluggish growth (secular stagnation)
+
+### Finding 5: Emerging Markets Mixed Performance
+- **Best Case:** Singapore (high openness + strong growth)
+- **Mediocre Case:** Some sub-Saharan African nations (high openness, modest growth)
+
+**Lesson:** Trade channel effectiveness mediated by institutional capacity.
+
+---
+
+## 🎯 Recommendations
+
+### For Developing Nations
+1. **Holistic Approach:** Trade liberalization ≠ growth guarantee
+   - Pair with: Education, infrastructure, governance investments
+2. **Peer Learning:** Study successful peers (Vietnam, South Korea model)
+3. **Value Addition:** Focus on high-value exports vs. commodities
+
+### For International Organizations
+1. **Condition-Based Financing:** Link trade support to institutional reforms
+2. **Context Sensitivity:** Tailor policies by country developmental stage
+3. **Transition Support:** Fund labor-market adjustments; provide social safety nets
+
+### For Business/Investors
+1. **Due Diligence:** High trade openness ≠ market dynamism
+2. **Sector Analysis:** Identify structural advantages (e.g., logistics in Singapore)
+3. **Risk Management:** Monitor geopolitical tensions; track supply-chain risks
+
+---
+
+
+
+---
+
+## 📚 Data Sources & Credits
+
+### Primary Source
+- **World Bank World Development Indicators (WDI)**
+  - License: Creative Commons Attribution 4.0 (CC-BY 4.0)
+  - URL:https://datatopics.worldbank.org/world-development-indicators/
+
+### Project Attribution
+- **Analyst:** Gift Onyia (AnalystLab Africa)
+- **Program:** AnalystLab Africa Internship (Week 8 Capstone)
+- **Project Period:** June 2026
+- **Tools:** Power BI, DAX, Power Query (M)
+
+---
+
+## 🔗 Related Resources
+
+### Tools & Platforms
+- [World Bank WDI](https://datatopics.worldbank.org/world-development-indicators/)
+- [Microsoft Power BI Documentation](https://docs.microsoft.com/en-us/power-bi/)
+
+
+### Academic References
+- Frankel, J. A., & Romer, D. (1999). "Does Trade Cause Growth?"
+- Rodriguez, F., & Rodrik, D. (2000). "Trade Policy and Economic Growth"
+- Wacziarg, R., & Welch, K. H. (2008). "Trade Liberalization and Growth"
+
+---
+
+
+
+---
+
+## 📄 License
+This analysis uses **Creative Commons Attribution 4.0 (CC-BY 4.0)** licensed World Bank data. The analysis itself is provided as open educational content.
+
+---
+
+**Project Status:** ✅ Complete  
+**Last Updated:** June 2026  
+**Version:** 1.0
